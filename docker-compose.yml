@@ -1,0 +1,36 @@
+# WARNING: INTENTIONALLY VULNERABLE APPLICATION — DO NOT EXPOSE TO PUBLIC INTERNET
+
+services:
+  backend:
+    build: ./backend
+    container_name: contract-portal-api
+    ports:
+      - "50000:8000"
+    volumes:
+      - db-data:/app/data
+      - ./backend:/app          # VULNERABLE: Live code mount with --reload
+    environment:
+      # VULNERABLE: Secrets in plain-text environment variables
+      - JWT_SECRET=secret123
+      - INTERNAL_API_KEY=sk-internal-corp-prod-9f3a2b1c
+      - ENVIRONMENT=production  # VULNERABLE: Says production but debug mode on
+    # VULNERABLE: No resource limits — DoS possible
+    networks:
+      - portal-net
+
+  frontend:
+    build: ./frontend
+    container_name: contract-portal-ui
+    ports:
+      - "7100:80"
+    depends_on:
+      - backend
+    networks:
+      - portal-net
+
+volumes:
+  db-data:
+
+networks:
+  portal-net:
+    driver: bridge

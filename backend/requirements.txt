@@ -1,0 +1,37 @@
+# Contract Portal Backend Dependencies
+# VULNERABLE: Intentionally outdated packages with known CVEs
+
+# VULNERABLE: FastAPI 0.68.0 - older version, no security patches from 0.95+
+fastapi==0.68.0
+
+# VULNERABLE: uvicorn 0.15.0 - older version
+uvicorn==0.15.0
+
+# VULNERABLE: python-jose 3.2.0 - CVE-2022-29217 (algorithm confusion / key confusion attack)
+#   Attacker can forge JWT tokens by exploiting algorithm switching (RS256 -> HS256 with public key)
+python-jose==3.2.0
+
+# VULNERABLE: PyJWT 1.7.1 - CVE-2022-29217 (same class of vuln), no proper alg validation
+PyJWT==1.7.1
+
+# VULNERABLE: cryptography 3.3.2 - CVE-2023-23931 (memory corruption in Blowfish),
+#   CVE-2023-49083 (NULL pointer dereference), multiple older CVEs
+cryptography==3.3.2
+
+# VULNERABLE: requests 2.25.1 - CVE-2023-32681 (proxy credential leak)
+requests==2.25.1
+
+# VULNERABLE: Pillow 8.2.0 - CVE-2021-25290, CVE-2021-28675, CVE-2021-28676 (multiple RCE/DoS)
+Pillow==8.2.0
+
+# VULNERABLE: pydantic 1.8.2 - older, no security patches from 2.x
+pydantic==1.8.2
+
+# VULNERABLE: python-multipart 0.0.5 - CVE-2024-24762 (ReDoS vulnerability)
+python-multipart==0.0.5
+
+# VULNERABLE: aiofiles 0.7.0 - older version
+aiofiles==0.7.0
+
+# Standard
+aiosqlite==0.17.0
