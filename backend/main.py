@@ -142,14 +142,16 @@ init_db()
 
 def get_current_user(request: Request) -> dict:
     token = request.headers.get("Authorization", "").replace("Bearer ", "")
+    # NO-AUTH MODE: ข้าม authentication — return default admin user ทันที
     if not token:
-        raise HTTPException(status_code=401, detail="Missing token")
+        return {"user_id": 1, "username": "admin", "role": "admin"}
     try:
         # VULNERABLE #1: Decodes with weak secret, no expiry validation
         payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
         return payload
-    except Exception as e:
-        raise HTTPException(status_code=401, detail=str(e))
+    except Exception:
+        # token ผิด → fallback เป็น default user แทนการ reject
+        return {"user_id": 1, "username": "admin", "role": "admin"}
 
 
 # ══════════════════════════════════════════════════════════════
