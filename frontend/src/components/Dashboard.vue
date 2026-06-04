@@ -57,7 +57,7 @@
 <script>
 import axios from 'axios'
 
-const API = 'http://localhost:50000'
+const API = `http://${window.location.hostname}:50000`
 
 // VULNERABLE #19: Hardcoded API key in frontend source
 const HARDCODED_PAYMENT_API_KEY = 'pk_live_corp_payment_abc123xyz456secret'

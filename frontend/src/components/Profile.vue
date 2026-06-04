@@ -52,7 +52,7 @@
 <script>
 import axios from 'axios'
 
-const API = 'http://localhost:50000'
+const API = `http://${window.location.hostname}:50000`
 
 export default {
   name: 'Profile',
