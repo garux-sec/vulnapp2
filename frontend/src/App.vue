@@ -1,16 +1,13 @@
 <template>
   <div id="app">
-    <nav v-if="isLoggedIn" class="navbar">
+    <nav class="navbar">
       <div class="nav-brand">Contract Portal</div>
       <div class="nav-links">
         <router-link to="/dashboard">Dashboard</router-link>
         <router-link to="/contracts">Contracts</router-link>
-        <router-link to="/admin" v-if="userRole === 'admin'">Admin</router-link>
+        <router-link to="/admin">Admin</router-link>
         <router-link to="/profile">Profile</router-link>
-        <button @click="logout" class="btn-logout">Logout</button>
       </div>
-      <!-- VULNERABLE #17: Displays role read from localStorage — attacker can change to 'admin' -->
-      <span class="user-badge">{{ username }} [{{ userRole }}]</span>
     </nav>
     <router-view />
   </div>
